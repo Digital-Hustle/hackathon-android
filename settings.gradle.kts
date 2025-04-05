@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "tnshelper"
 include(":app")
- 
+include(":common:core")
+include(":common:navigation")
+include(":common:network")
+include(":common:chats_holder")
+include(":feature:auth")
+include(":feature:chat")
