@@ -3,7 +3,9 @@ package com.example.auth.presentation.screens
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +13,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AccountCircle
 
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +54,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.collect
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AuthScreen(
     state: AuthContract.State,
@@ -79,10 +90,29 @@ fun AuthScreen(
                     onNavigationRequested(AuthContract.Effect.Navigation.toMain)
                 }
 
-
+                AuthContract.Effect.Navigation.toProfile -> TODO()
             }
         }?.collect()
     }
+    TopAppBar(navigationIcon = {
+        IconButton(onClick = {
+            onEventSent(AuthContract.Event.BackButtonClicked)
+        }, Modifier.fillMaxHeight()) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Localized description",
+                modifier = Modifier.fillMaxSize(0.8f)
+            )
+        }
+    },actions = {}, title = {}, colors = TopAppBarDefaults.topAppBarColors(
+        containerColor = MaterialTheme.colorScheme.onTertiary,
+        scrolledContainerColor = MaterialTheme.colorScheme.onTertiary,
+        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+        titleContentColor = MaterialTheme.colorScheme.onPrimary,
+        actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+    )
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -103,6 +133,9 @@ fun AuthScreen(
         }
 
 
+
+
+
         Spacer(modifier = Modifier.fillMaxHeight(0.2f))
 
 
@@ -110,7 +143,7 @@ fun AuthScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(10))
-                .background(MaterialTheme.colorScheme.secondary),
+                .background(MaterialTheme.colorScheme.surface),
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
@@ -123,14 +156,15 @@ fun AuthScreen(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.fillMaxWidth(0.8f),
                 maxLines = 1,
+                color = MaterialTheme.colorScheme.onPrimary
 
                 )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = description,
                 modifier = Modifier.fillMaxWidth(0.8f),
-                color = MaterialTheme.colorScheme.onSecondary,
-                minLines = 2
+                color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
+                minLines = 2,
             )
             Spacer(modifier = Modifier.height(16.dp))
 

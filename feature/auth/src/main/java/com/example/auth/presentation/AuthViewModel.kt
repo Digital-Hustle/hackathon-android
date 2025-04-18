@@ -45,6 +45,7 @@ class AuthViewModel @Inject constructor(
             }
 
             is AuthContract.Event.PasswordChanged -> setState { copy(password = event.query) }
+            AuthContract.Event.BackButtonClicked -> setEffect { AuthContract.Effect.Navigation.toMain }
         }
     }
 

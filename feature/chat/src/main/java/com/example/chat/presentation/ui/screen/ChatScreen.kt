@@ -1,5 +1,6 @@
 package com.example.chat.presentation.ui.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,9 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +56,7 @@ import kotlinx.coroutines.flow.onEach
 import java.util.Date
 import kotlin.random.Random
 
+@SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
@@ -61,19 +66,30 @@ fun ChatScreen(
     onNavigationRequested: (ChatContract.Effect.Navigation) -> Unit,
 ) {
 //    val messages = state.messagesPagingFlow?.collectAsLazyPagingItems()
-    val messages = state.messagesPagingFlow?.collectAsLazyPagingItems()
-    mLog("MESS",messages?.itemCount.toString())
-//    val messages = List(50) { i ->
+//    val messages = state.messagesPagingFlow?.collectAsLazyPagingItems()
+//    mLog("MESS",messages?.itemCount.toString())
+    val messages = state.mockMessages
+    mLog("tttt",messages.toString())
+//    val messages = mutableListOf(MessageEntity(
+//        id = 1,
+//        chatId = 1,
+//        content = "Давайте разберёмся. Возможно, увеличилось потребление. Вы использовали новые электроприборы или, может быть, что-то работало дольше обычного?",
+//        senderName = "dimadima",
+//
+//        timestamp = Date().time,
+//        isMyMessage = false,
+//    ),
 //        MessageEntity(
 //            id = 1,
 //            chatId = 1,
-//            content = "Привет ".repeat(Random.nextInt(1, 17)) + i.toString(),
-//            senderId = 1,
+//            content = "У меня вопрос по поводу электроэнергии — счёт за этот месяц сильно вырос. Почему так?",
+//            senderName = "dimadima",
 //
 //            timestamp = Date().time,
-//            isMyMessage = Random.nextBoolean(),
+//            isMyMessage = true,
+//        ),
+//
 //        )
-//    }
     LaunchedEffect(Unit) {
         effectFlow?.onEach { effect ->
             when (effect) {
@@ -83,19 +99,14 @@ fun ChatScreen(
                     )
                 }
 
-                is ChatContract.Effect.Navigation.ToProfile -> state.secondUserName?.let {
-                    ChatContract.Effect.Navigation.ToProfile(
-                        it
+                is ChatContract.Effect.Navigation.ToProfile -> {
+                    onNavigationRequested(
+                        ChatContract.Effect.Navigation.ToProfile
+
                     )
                 }
-                    ?.let {
-                        onNavigationRequested(
-                            it
-                        )
-                    }
             }
         }?.collect()
-
 
 
     }
@@ -121,7 +132,7 @@ fun ChatScreen(
             }
         }, title = {
             ProfileItem(state.chat) {
-                onEventSent(ChatContract.Event.ProfileClicked)
+//                onEventSent(ChatContract.Event.ProfileClicked)
             }
 
         }, colors = TopAppBarColors(
@@ -133,34 +144,22 @@ fun ChatScreen(
         )
         )
         LazyColumn(
-            modifier = Modifier
-                .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally, reverseLayout = true
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            reverseLayout = true
         ) {
             if (messages != null) {
-                items(messages.itemCount) { index ->
+                items(messages.size) { index ->
                     messages[index]?.let {
                         MessageItem(
                             message = it,
-//                            onClick = {
-//                                if (state.isUserList) {
-//                                    onEventSent(ChatsContract.Event.UserItemClicked(it.id))
-//                                } else {
-//                                    onEventSent(ChatsContract.Event.ChatItemClicked(it.id))
-//                                }
-//                            }
                         )
-//                        HorizontalDivider(
-//                            modifier = Modifier.fillMaxWidth(0.9f),
-//                            thickness = 1.dp,
-//                            color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.1f)
-//                        )
                     }
                 }
             }
 
         }
-        Column(Modifier.background(MaterialTheme.colorScheme.onTertiary)) {
+        Column(Modifier.background(MaterialTheme.colorScheme.onPrimary.copy(0.2f))) {
 
 
             Row(
@@ -186,7 +185,9 @@ fun ChatScreen(
                     maxLines = 4,
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = MaterialTheme.colorScheme.tertiary,
-                        unfocusedContainerColor = MaterialTheme.colorScheme.tertiary
+                        unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                        focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onPrimary
                     )
                 )
 
@@ -196,6 +197,7 @@ fun ChatScreen(
                             onEventSent(
                                 ChatContract.Event.OnSendMessage
                             )
+
                         }
                     }, modifier = Modifier
                         .clip(
@@ -205,7 +207,7 @@ fun ChatScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowUpward,
-                        contentDescription = "Отправить"
+                        contentDescription = "Отправить",
                     )
                 }
             }

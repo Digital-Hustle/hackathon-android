@@ -1,4 +1,4 @@
-package com.example.authtest.application
+package com.example.tnshelper.application
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

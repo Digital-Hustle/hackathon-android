@@ -1,4 +1,4 @@
-package com.example.authtest.presentation.ui.theme
+package com.example.tnshelper.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -18,6 +18,12 @@ val ligntGrey = Color(0xFFC3CDDB)
 val green = Color(0xFF0CAF60)
 val darkGrey = Color(0xFF0B0E13)
 val errorRed = Color(0xFFFF5449)
+
+val whiteBackgorund = Color(0xFFFFFFFF)
+val greyBackground_2 = Color(0xFFCCCCCC)
+val greyBackground_3 = Color(0xFF777777)
+val primaryGreen = Color(0xFF159A35)
+val onPrimaryGrey = Color(0xFF292930)
 
 
 val positivePriceIncrease = Color(0xFF2c905e)

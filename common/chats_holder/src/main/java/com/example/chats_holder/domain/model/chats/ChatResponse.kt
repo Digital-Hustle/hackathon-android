@@ -12,3 +12,4 @@ data class ChatResponse(
     @SerializedName("photo")
     val photo: String?
 )
+

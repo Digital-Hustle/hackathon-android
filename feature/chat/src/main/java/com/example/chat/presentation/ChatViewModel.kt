@@ -3,6 +3,7 @@ package com.example.chat.presentation
 import androidx.lifecycle.viewModelScope
 import com.example.chat.domain.repository.ChatRepository
 import com.example.chat.presentation.ChatContract.State
+import com.example.chats_holder.data.local.entities.MessageEntity
 import com.example.core.domain.UserStorage
 import com.example.core.mLog
 import com.example.core.presentation.BaseViewModel
@@ -22,8 +23,6 @@ class ChatViewModel @Inject constructor(
 
 
     override fun setInitialState(): State {
-
-
         return State(
             isLoading = true,
         )
@@ -71,15 +70,24 @@ class ChatViewModel @Inject constructor(
 
             ChatContract.Event.OnSendMessage -> {
                 repository.sendMessage(viewState.value.inputText)
-                setState { copy(inputText = "") }
+                setState { copy(inputText = "", mockMessages = listOf(
+                    MessageEntity(
+                        id = 1,
+                        chatId = 1,
+                        senderName = "dimadima",
+                        content = viewState.value.inputText,
+                        timestamp = 1,
+                        isMyMessage = true
+                    )
+                ) + viewState.value.mockMessages ) }
             }
 //            ChatContract.Event.Refresh -> TODO()
-            ChatContract.Event.BackButtonClicked -> setEffect { ChatContract.Effect.Navigation.ToChats }
-            ChatContract.Event.ProfileClicked -> setEffect {
-                ChatContract.Effect.Navigation.ToProfile(
-                    viewState.value.secondUserName!!
-                )
-            }
+            ChatContract.Event.BackButtonClicked -> setEffect { ChatContract.Effect.Navigation.ToProfile }
+//            ChatContract.Event.ProfileClicked -> setEffect {
+//                ChatContract.Effect.Navigation.ToProfile(
+//                    viewState.value.secondUserName!!
+//                )
+//            }
 
             is ChatContract.Event.TextInputChanged -> setState { copy(inputText = event.newValue) }
         }

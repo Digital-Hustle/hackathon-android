@@ -33,10 +33,7 @@ class SingletonModule {
         tokenManager: TokenManager,
         stompClient: StompClient,
         remoteKeysDao: RemoteKeysDao
-    ): ChatRepository = RepositoryFactory<ChatRepository>().create(
-        ChatRepositoryImpl(messageDao, chatDao, apiService, chatDatabase, tokenManager,stompClient,remoteKeysDao),
-        ChatMockRepository(messageDao, chatDao)
-    )
+    ): ChatRepository =ChatRepositoryImpl(messageDao,chatDao,apiService,chatDatabase,tokenManager, stompClient, remoteKeysDao)
 
     @Provides
     @Singleton

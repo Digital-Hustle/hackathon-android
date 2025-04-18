@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -34,7 +35,7 @@ fun OutlinedPasswordTextField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) }, singleLine = true,
+        label = { Text(label, color = MaterialTheme.colorScheme.onPrimary.copy(0.9f)) }, singleLine = true,
         visualTransformation = if (passwordVisible)
             VisualTransformation.None
         else
@@ -48,7 +49,7 @@ fun OutlinedPasswordTextField(
                             Icons.Outlined.VisibilityOff
                         else
                             Icons.Outlined.Visibility,
-                        contentDescription = null
+                        contentDescription = null,tint = MaterialTheme.colorScheme.onPrimary.copy(0.9f)
                     )
                 }
             }
@@ -56,6 +57,10 @@ fun OutlinedPasswordTextField(
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.tertiary,
             unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary.copy(0.8f),
+            unfocusedTextColor = MaterialTheme.colorScheme.primary,
+            focusedTextColor = MaterialTheme.colorScheme.primary,
+
 
 
             ),

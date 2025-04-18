@@ -14,7 +14,7 @@ import com.example.network.presentation.TokenViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun AppNavigation(startDestination: String) {
+fun AppNavigation() {
 
     val navController = rememberNavController()
     val tokenViewModel: TokenViewModel = hiltViewModel()
@@ -24,7 +24,8 @@ fun AppNavigation(startDestination: String) {
     LaunchedEffect(Unit) {
         launch {
             tokenViewModel.token.collect { newToken ->
-                if (newToken == null) {
+                if (newToken == null ) {
+                    if (navController.currentDestination?.route in listOf(Navigation.Routes.CHAT,Navigation.Routes.PROFILE))
                     navController.navigate(Navigation.Routes.AUTH) {
                         popUpTo(0)
                     }
@@ -37,26 +38,26 @@ fun AppNavigation(startDestination: String) {
 
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = Navigation.Routes.MAIN
     ) {
 
         composable(
             route = Navigation.Routes.PROFILE
         ) {
-            SelfProfileDestination(navController)
+            ProfileDestination(navController)
         }
 
 
         composable(route = Navigation.Routes.MAIN) {
+
             MainScreenDestination(navController)
         }
         composable(route = Navigation.Routes.AUTH) {
             AuthScreenDestination(navController)
-
+//
         }
         composable(route = Navigation.Routes.SEND) {
-//            AuthScreenDestination(navController)
-
+            SendScreenDestination(navController)
         }
         composable(route = Navigation.Routes.REPORT) {
 //            AuthScreenDestination(navController)

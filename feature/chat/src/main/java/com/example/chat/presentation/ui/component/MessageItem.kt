@@ -47,7 +47,7 @@ fun MessageItem(message: MessageEntity) {
         Box(
             modifier = Modifier
                 .background(
-                    color = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.8f),
+                    color = MaterialTheme.colorScheme.onPrimary.copy(0.2f),
                     shape = cornerShape
                 )
                 .padding(12.dp)
@@ -56,15 +56,16 @@ fun MessageItem(message: MessageEntity) {
             Row(verticalAlignment = Alignment.Bottom) {
                 Spacer(Modifier.width(4.dp))
                 Text(text = message.content, fontSize = 20.sp,softWrap = true,
-                    overflow = TextOverflow.Clip,)
-                Spacer(Modifier.width(16.dp))
+                    overflow = TextOverflow.Clip,
+                    color = MaterialTheme.colorScheme.onPrimary)
+//                Spacer(Modifier.width(16.dp))
 
-                Text(
-                    text = formatTime(message.timestamp),
-                    fontSize = 10.sp,
-                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f),
-                     lineHeight = 10.sp, modifier =  Modifier.width(50.dp)
-                )
+//                Text(
+//                    text = formatTime(message.timestamp),
+//                    fontSize = 10.sp,
+//                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f),
+//                     lineHeight = 10.sp, modifier =  Modifier.width(50.dp)
+//                )
                 Spacer(Modifier.width(4.dp))
 
 

@@ -2,6 +2,7 @@ package com.example.network.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.domain.UserStorage
 import com.example.network.storage.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TokenViewModel @Inject constructor(
     private val tokenManager: TokenManager,
+    private val userStorage: UserStorage
 
 ) : ViewModel() {
 
@@ -21,6 +23,8 @@ class TokenViewModel @Inject constructor(
 //        deleteToken()
 //        deleteRefresh()
 //    }
+
+
 
     private val _token = MutableStateFlow<String?>(null)
     val token: StateFlow<String?> = _token.asStateFlow()
@@ -34,6 +38,14 @@ class TokenViewModel @Inject constructor(
             tokenManager.getToken().collect {
                 _token.value = it
             }
+        }
+    }
+
+    fun logout(){
+        deleteToken()
+        viewModelScope.launch {
+            userStorage.clear()
+
         }
     }
 

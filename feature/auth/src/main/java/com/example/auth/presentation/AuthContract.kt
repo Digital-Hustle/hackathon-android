@@ -16,7 +16,9 @@ class AuthContract {
         data object LoginButtonClicked : Event()
 
         data class ChangeAuthTypeButtonClicked(val select: Boolean) : Event()
-        data object LoginWithGoogleButtonClicked : Event()
+        data object LoginWithGoogleButtonClicked : Event(
+        )
+        data object BackButtonClicked:Event()
     }
 
     data class State(
@@ -38,6 +40,7 @@ class AuthContract {
 
         sealed class Navigation : Effect() {
             object toMain : Navigation()
+            object toProfile:Navigation()
         }
     }
 

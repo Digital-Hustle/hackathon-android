@@ -20,7 +20,7 @@ import javax.inject.Singleton
 import com.example.network.AuthInterceptor
 import com.example.network.AuthAuthenticator
 import com.example.network.Interface.RefreshApiService
-import com.example.network.presentation.ImageManager
+import com.example.network.presentation.FileMapper
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token_data_store")
 
@@ -79,7 +79,7 @@ class SingletonModule {
 
     @Singleton
     @Provides
-    fun provideImageManager(@ApplicationContext context: Context)= ImageManager(context)
+    fun provideImageManager(@ApplicationContext context: Context)= FileMapper(context)
 
 
 

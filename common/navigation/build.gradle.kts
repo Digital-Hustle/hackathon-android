@@ -32,7 +32,7 @@ android {
         jvmTarget = "11"
     }
 
-    buildFeatures{
+    buildFeatures {
         compose = true
     }
 
@@ -50,9 +50,16 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation (libs.androidx.hilt.navigation.compose.v110)
-//    implementation(project(":feature:main"))
+
+    implementation(libs.androidx.material3.android)
+
+
+
+    implementation(project(":feature:main"))
     implementation(project(":feature:auth"))
-//    implementation(project(":feature:profile"))
+    implementation(project(":feature:send"))
+
+    implementation(project(":feature:profile"))
     implementation(project(":feature:chat"))
 
     implementation(project(":common:core"))

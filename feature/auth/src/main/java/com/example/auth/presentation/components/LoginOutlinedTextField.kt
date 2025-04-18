@@ -21,11 +21,14 @@ fun LoginOutlinedTextField(
 
         value = value,
         onValueChange =onValueChange,
-        label = { Text(label) },
+        label = { Text(label, color = MaterialTheme.colorScheme.onPrimary.copy(0.9f)) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = MaterialTheme.colorScheme.tertiary,
             unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+            unfocusedIndicatorColor = MaterialTheme.colorScheme.primary.copy(0.8f),
+            unfocusedTextColor = MaterialTheme.colorScheme.primary.copy(0.8f),
+            focusedTextColor = MaterialTheme.colorScheme.primary,
 
 
             ),

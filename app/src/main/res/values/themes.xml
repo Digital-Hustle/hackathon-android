@@ -2,4 +2,15 @@
 <resources>
 
     <style name="Theme.Tnshelper" parent="android:Theme.Material.Light.NoActionBar" />
+
+
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icon_tns</item>
+        <!--           <item name="windowSplashScreenAnimationDuration">50</item>-->
+
+        <item name="postSplashScreenTheme">@style/Theme.Tnshelper</item>
+    </style>
 </resources>

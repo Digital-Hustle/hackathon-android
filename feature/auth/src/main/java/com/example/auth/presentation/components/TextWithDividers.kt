@@ -24,7 +24,7 @@ import androidx.compose.foundation.layout.Arrangement
 fun TextWithDividers(
     text: String,
     modifier: Modifier = Modifier,
-    dividerColor: Color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+    dividerColor: Color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.3f),
     dividerThickness: Dp = 1.dp,
     dividerWidth: Dp = 40.dp,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge
@@ -48,7 +48,8 @@ fun TextWithDividers(
         Text(
             text = text,
             style = textStyle,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onPrimary
         )
 
         // Отступ между текстом и штрихом

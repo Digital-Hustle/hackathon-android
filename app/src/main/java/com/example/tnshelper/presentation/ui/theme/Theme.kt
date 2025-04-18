@@ -1,4 +1,4 @@
-package com.example.authtest.presentation.ui.theme
+package com.example.tnshelper.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -36,15 +36,15 @@ private val LightColorScheme = lightColorScheme(
 )
 
 private val MyColorScheme = darkColorScheme(
-    primary = green,
+    primary = primaryGreen,
     secondary = greyBackground,
-    tertiary = greySecond,
+    tertiary = whiteBackgorund,
     background = ligntGrey,
-    onPrimary = white,
-    surface = darkGrey,
+    onPrimary = onPrimaryGrey,
+    surface = whiteBackgorund,
     onSecondary = ligntGrey,
     error = errorRed,
-    onTertiary = anotherGrey
+    onTertiary = whiteBackgorund
 
 
 )
